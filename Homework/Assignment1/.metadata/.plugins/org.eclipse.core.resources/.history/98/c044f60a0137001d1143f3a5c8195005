@@ -1,0 +1,35 @@
+
+public class Deposit {
+	private int coinAmnt;
+	private int coinType;
+	private int space;
+	
+	public boolean isLegal(int coinAmnt, int space) {
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+		
+	
+	public  Deposit(int amnt, int type, int space) {
+		
+		if (isLegal(amnt, space) == true) {
+			(switch) (type){
+				case 0: //galleon
+					this.galleon += amnt;
+			}
+		}
+	}
+
+}

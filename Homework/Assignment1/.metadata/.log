@@ -1,0 +1,2257 @@
+!SESSION 2022-09-17 12:21:05.160 -----------------------------------------------
+eclipse.buildId=4.24.0.I20220607-0700
+java.version=17.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+
+!ENTRY org.eclipse.jface 2 0 2022-09-17 12:21:29.049
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-17 12:21:29.049
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4535bdc6,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@23e86863,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-17 12:21:29.049
+!MESSAGE A conflict occurred for ALT+COMMAND+R:
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6df87ffd,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@c1f0c7b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-09-17 22:26:56.757
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+
+public class CoinPurse {
+
+	private int galleons;
+	private int sickles;
+	private int knuts;
+	private int space;
+	private int type;
+	private final int  LIMIT = 256;
+	
+	public CoinPurse() {
+		
+		this.galleons = 0;
+		this.sickles = 0;
+		this.knuts = 0;
+		this.space = LIMIT - numCoins();
+	}
+	
+	public CoinPurse(int g, int s, int k) {
+		
+		if ( g < 0 || s < 0|| k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (LIMIT < (g + s + k)) {
+			throw new IllegalArgumentException(
+					"Too many coins must be less than " + LIMIT);
+		}
+		
+		else {
+			
+			this.galleons = g;
+			this.sickles = s;
+			this.knuts = k;
+			this.space = LIMIT - numCoins();
+		}
+	}
+	
+	public boolean isLegalDeposit(int coinAmnt) {
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+	public boolean isLegalWithdraw(int coinAmnt, int type) {
+		
+		switch (type) {
+		case 0://galleon
+			if (this.galleons < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + galleons + "in the bank");
+				
+			}
+			break;
+			
+		case 1: //sickles
+			if (this.sickles < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + sickles + "in the bank");
+			}
+			"You only have " + galleons + "in the bank");
+		case 2: //knuts
+			if (this.knuts < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + knuts + "in the bank");
+			}	
+		
+	}
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		else {
+			return true;
+		}
+	}
+	
+	public void Deposit(int amnt, int coinType, int space) {
+		
+		this.type = coinType;
+		if (isLegalDeposit(amnt) == true) {
+			try {
+				
+				switch (type){
+					case 0: //galleon
+						this.galleons += amnt;
+						break;
+					case 1: //sickles
+						this.sickles += amnt;
+						break;
+					case 2: //knuts
+						this.knuts += amnt;
+						break;
+				}
+			}
+			
+			catch (IllegalArgumentException ex) {
+				
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+
+	
+	//try to use generics for deposit functions or a isLegal helper function
+	public void depositGalleon(int g) {
+		
+		if (isLegalDeposit == (g) == true) {
+			this.galleons += g;
+		}
+		
+	}
+	
+	public void depositSickles(int s) {
+			
+		if (isLegalDeposit(s) == true) {
+			this.sickles += s;
+		}
+		
+	}
+		
+	
+	public void depositKnuts(int k) {
+		
+		if (isLegalDeposit(k) == true) {
+			this.knuts += k;
+		}
+		
+	}
+	
+	public void withdrawGalleon(int g) {
+		
+		if (isLegalWithdraw(g) == true) {
+			this.galleons += g;
+		}
+		
+	}
+	
+	public void withdrawSickles(int s) {
+			
+		if (this.space < s) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		}
+		
+		if (s < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		else {
+			this.sickles += s;
+		}
+			
+	}
+	
+	public void withdrawKnuts(int k) {
+		
+		if (this.space < k) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		}
+		
+		if (k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		else {
+			this.knuts += k;
+		}
+		
+	}
+	
+	public int numCoins() {
+		int numCoins = galleons + sickles + knuts;
+		return numCoins;
+	}
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			//CoinPurse c1 = new CoinPurse(100, 100, 100);
+			//System.out.println(c1.numCoins());
+			CoinPurse c2 = new CoinPurse(50, 100, 100);
+			System.out.println(c2.numCoins());
+			c2.depositGalleon(6);
+			//c2.depositSickles(1);
+			//c2.depositKnuts(4);
+			
+			System.out.println(c2.numCoins());
+		}
+		
+		catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-09-17 22:26:56.760
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-09-17 22:26:56.760
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-09-17 22:26:56.863
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+
+public class CoinPurse {
+
+	private int galleons;
+	private int sickles;
+	private int knuts;
+	private int space;
+	private int type;
+	private final int  LIMIT = 256;
+	
+	public CoinPurse() {
+		
+		this.galleons = 0;
+		this.sickles = 0;
+		this.knuts = 0;
+		this.space = LIMIT - numCoins();
+	}
+	
+	public CoinPurse(int g, int s, int k) {
+		
+		if ( g < 0 || s < 0|| k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (LIMIT < (g + s + k)) {
+			throw new IllegalArgumentException(
+					"Too many coins must be less than " + LIMIT);
+		}
+		
+		else {
+			
+			this.galleons = g;
+			this.sickles = s;
+			this.knuts = k;
+			this.space = LIMIT - numCoins();
+		}
+	}
+	
+	public boolean isLegalDeposit(int coinAmnt) {
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+	public boolean isLegalWithdraw(int coinAmnt, int type) {
+		
+		switch (type) {
+		case 0://galleon
+			if (this.galleons < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + galleons + "in the bank");
+				
+			}
+			break;
+			
+		case 1: //sickles
+			if (this.sickles < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + sickles + "in the bank");
+			}
+			"You only have " + galleons + "in the bank");
+		case 2: //knuts
+			if (this.knuts < coinAmnt) {
+				throw new IllegalArgumentException(
+						"You only have " + knuts + "in the bank");
+			}	
+		
+	}
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		else {
+			return true;
+		}
+	}
+	
+	public void Deposit(int amnt, int coinType, int space) {
+		
+		this.type = coinType;
+		if (isLegalDeposit(amnt) == true) {
+			try {
+				
+				switch (type){
+					case 0: //galleon
+						this.galleons += amnt;
+						break;
+					case 1: //sickles
+						this.sickles += amnt;
+						break;
+					case 2: //knuts
+						this.knuts += amnt;
+						break;
+				}
+			}
+			
+			catch (IllegalArgumentException ex) {
+				
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+
+	
+	//try to use generics for deposit functions or a isLegal helper function
+	public void depositGalleon(int g) {
+		
+		if (isLegalDeposit == (g) == true) {
+			this.galleons += g;
+		}
+		
+	}
+	
+	public void depositSickles(int s) {
+			
+		if (isLegalDeposit(s) == true) {
+			this.sickles += s;
+		}
+		
+	}
+		
+	
+	public void depositKnuts(int k) {
+		
+		if (isLegalDeposit(k) == true) {
+			this.knuts += k;
+		}
+		
+	}
+	
+	public void withdrawGalleon(int g) {
+		
+		if (isLegalWithdraw(g) == true) {
+			this.galleons += g;
+		}
+		
+	}
+	
+	public void withdrawSickles(int s) {
+			
+		if (this.space < s) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		}
+		
+		if (s < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		else {
+			this.sickles += s;
+		}
+			
+	}
+	
+	public void withdrawKnuts(int k) {
+		
+		if (this.space < k) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		}
+		
+		if (k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		else {
+			this.knuts += k;
+		}
+		
+	}
+	
+	public int numCoins() {
+		int numCoins = galleons + sickles + knuts;
+		return numCoins;
+	}
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			//CoinPurse c1 = new CoinPurse(100, 100, 100);
+			//System.out.println(c1.numCoins());
+			CoinPurse c2 = new CoinPurse(50, 100, 100);
+			System.out.println(c2.numCoins());
+			c2.depositGalleon(6);
+			//c2.depositSickles(1);
+			//c2.depositKnuts(4);
+			
+			System.out.println(c2.numCoins());
+		}
+		
+		catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2022-09-17 22:26:56.864
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2022-09-17 22:26:56.866
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3159)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3046)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.debug.core 4 125 2022-09-19 19:08:00.492
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: Bad file descriptor
+	at java.base/java.io.FileInputStream.available0(Native Method)
+	at java.base/java.io.FileInputStream.available(FileInputStream.java:415)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:351)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:106)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.internalRead(OutputStreamMonitor.java:249)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:225)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY org.eclipse.debug.core 4 125 2022-09-19 19:10:52.623
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: Stream closed
+	at java.base/java.io.BufferedInputStream.getBufIfOpen(BufferedInputStream.java:168)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:334)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:106)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.internalRead(OutputStreamMonitor.java:249)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:225)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY org.eclipse.debug.core 4 125 2022-09-19 19:12:26.645
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: Stream closed
+	at java.base/java.io.BufferedInputStream.getBufIfOpen(BufferedInputStream.java:168)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:334)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:106)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.internalRead(OutputStreamMonitor.java:249)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:225)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY org.eclipse.debug.core 4 125 2022-09-19 19:27:17.595
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: Bad file descriptor
+	at java.base/java.io.FileInputStream.available0(Native Method)
+	at java.base/java.io.FileInputStream.available(FileInputStream.java:415)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:351)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:106)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.internalRead(OutputStreamMonitor.java:249)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:225)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+!SESSION 2022-09-20 13:36:07.451 -----------------------------------------------
+eclipse.buildId=4.24.0.I20220607-0700
+java.version=17.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+
+!ENTRY org.eclipse.jface 2 0 2022-09-20 13:36:28.478
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-20 13:36:28.478
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@21688427,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@656c5818,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-20 13:36:28.478
+!MESSAGE A conflict occurred for ALT+COMMAND+R:
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3e2578ea,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@29592929,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-09-20 16:22:52.409
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.util.Arrays;
+
+
+public class CoinPurse {
+
+	private int galleons;
+	private int sickles;
+	private int knuts;
+	private int space;
+	private int type;
+	private static final int GTK_CONV = 493; ///GALLEON TO KNUTS
+	private static final int STK_CONV = 29; ///SICKLE TO KNUTS
+	private final int  LIMIT = 256;
+	
+	public CoinPurse() {
+		
+		this.galleons = 0;
+		this.sickles = 0;
+		this.knuts = 0;
+		this.space = LIMIT - numCoins();
+	}
+	
+	public CoinPurse(int g, int s, int k) {
+		
+		if ( g < 0 || s < 0|| k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (LIMIT < (g + s + k)) {
+			throw new IllegalArgumentException(
+					"Too many coins must be less than " + LIMIT);
+		}
+		
+		else {
+			
+			this.galleons = g;
+			this.sickles = s;
+			this.knuts = k;
+			this.space = LIMIT - numCoins();
+		}
+	}
+	
+	public boolean isLegalDeposit(int coinAmnt) {
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+	public boolean isLegalWithdraw(int coinAmnt, int type) {
+		
+		if (coinAmnt < 0 ) {
+			
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (type == 0 || type == 1 || type == 2) {
+			boolean result = true;
+			switch (type) {
+			
+			
+			case 0://galleon
+				if (this.galleons < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + galleons + " galleons in the bank");
+				}	
+				result = false;
+				break;
+				
+			case 1: //sickles
+				if (this.sickles < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + sickles + " sickles in the bank");
+				}
+				result = false;
+				break;
+				
+			case 2: //knuts
+				if (this.knuts < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + knuts + " knuts in the bank");
+				}
+				result = false;
+				break;
+			}
+			return result;
+		}
+		else {
+			return true;
+		}
+	}
+		
+		
+	
+	public void deposit(int amnt, int coinType) {
+		
+		this.type = coinType;
+		
+		if (isLegalDeposit(amnt) == true) {
+			try {
+				
+				switch (type){
+					case 0: //galleon
+						this.galleons += amnt;
+						break;
+					case 1: //sickles
+						this.sickles += amnt;
+						break;
+					case 2: //knuts
+						this.knuts += amnt;
+						break;
+				}
+			}
+			
+			catch (IllegalArgumentException dep) {
+				System.out.println(dep.getMessage());
+			}
+			
+		}
+	}
+	
+	public void withdraw(int amnt, int coinType) {
+		
+		if (isLegalWithdraw(amnt, coinType)== true) {
+			try {
+				
+				switch (coinType){
+					case 0: //galleon
+						this.galleons -= amnt;
+						break;
+					case 1: //sickles
+						this.sickles -= amnt;
+						break;
+					case 2: //knuts
+						this.knuts -= amnt;
+						break;
+				}
+			}
+			
+			catch(IllegalArgumentException with) {
+				System.out.println(with.getMessage());
+			}
+			
+		}
+	}
+	
+	
+	/**try to use generics for deposit functions or a isLegal helper function
+	 * tried using generics but could not affect the values of the data fields when doing so 
+	 * @param g
+	 */
+	public void depositGalleon(int g) {
+	
+		deposit(g, 0);
+	}
+	
+	public void depositSickles(int s) {
+			
+		deposit(s, 1);
+	}
+	
+	public void depositKnuts(int k) {
+		
+		deposit(k, 2);
+	}
+	
+	public void withdrawGalleon(int g) {
+		
+		withdraw(g, 0);
+	}
+	
+	public void withdrawSickles(int s) {
+			
+		withdraw(s, 1);
+			
+	}
+	
+	public void withdrawKnuts(int k) {
+		
+		withdraw(k, 2);
+	}
+	
+	public int numCoins() {
+		int numCoins = galleons + sickles + knuts;
+		return numCoins;
+	}
+	
+	
+	public int totalValue() {
+		int total = (galleons * GTK_CONV) + (sickles * STK_CONV) + knuts;
+		return total;
+	}
+	
+	public static int totalValue(int[][] data) {
+		/**takes in a integer array in the for of {amount, type} 
+		 * where type 0, 1, 2 is  galleon, sickles, and knuts respectively
+		 */
+		int total = 0;
+		for (int i[]: data) {
+			
+			switch (i[1]) {
+				case 0:
+					total += i[0] * GTK_CONV;//galleon amount in knuts
+					break;
+				case 1:
+					total += i[0] * STK_CONV; //sickles amount in knuts
+					break;
+				case 2:
+					total += i[0];
+					break;	
+			}
+		}
+		//System.out.println("Your Total is " + total);
+		return total;
+	}
+	
+	public boolean exactChangeArr(int i, int [][] arr) {
+		//change return type to int[][]
+		//use short circuit and get rid of the for loop
+		
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		int change = i;
+		int [][] bracket = arr;
+		//boolean loseIt;
+		//boolean useIt = false;
+		
+		
+			
+		
+		if (cGalleons >= (change / GTK_CONV)) {
+			
+			change %= GTK_CONV;
+			arr[0][0] += change / GTK_CONV;
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		else {
+			
+			change -= cGalleons* GTK_CONV;
+			arr[0][0] +=cGalleons;
+			System.out.println(cGalleons);
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		if (cSickles >= (change / STK_CONV)) {
+			
+			arr[1][0] += change/ STK_CONV;
+			change %= STK_CONV;
+		}
+		
+		else {
+			
+			arr[1][0] += cSickles;
+			change -= cSickles * STK_CONV;
+		}
+		
+		if (change > 0 && cKnuts >= change) {
+			
+			arr[2][0] += change;
+			change -= change;
+		}
+		else {
+			change -cKnuts
+		}
+		
+		if (change == 0) {
+			
+			System.out.println(Arrays.deepToString(arr));
+			System.out.println(totalValue(arr));
+			return true;
+		}
+		
+		return false;
+	}	
+		
+		
+		
+		
+		// arr = {{cGalleons, 0}, {cSickles, 1}, {cKnuts, 2}};
+		
+		/**if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+			//System.out.println(Arrays.deepToString(arr));
+			int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+			System.out.println(Arrays.toString(coinChange));
+			return true;
+			
+		}
+		
+		
+		
+		else {
+			
+			
+			for (int num = 0; num < arr.length; num++) {
+				
+
+				if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+					//System.out.println(Arrays.deepToString(arr));
+					int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+					System.out.println(Arrays.toString(coinChange));
+					return true;
+				}
+				 //loseIt = exactChangeArr(i, arr);
+				 arr[num][0] += 1;
+				 useIt = exactChangeArr(i, arr);
+				 arr[num][0] -= 1; 
+				 
+				 //loseIt = exactChangeArr(i, arr);
+			}
+			return useIt;
+			
+			
+			
+			
+		}*/
+			
+
+			
+		
+
+		
+	
+	public String toString() {
+		return galleons + " galleons " + sickles + " sickles " + knuts + " knuts";
+	}
+	/**public boolean ExactChange(int n) {
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		
+	}*/
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			//CoinPurse c1 = new CoinPurse(100, 100, 100);
+			//System.out.println(c1.numCoins());
+			CoinPurse c2 = new CoinPurse(2, 5, 10);
+			System.out.println(c2.numCoins());
+			c2.depositGalleon(4);
+			//c2.withdrawGalleon(30);
+			int[][] test = {{1, 0}, {1, 1}, {1, 2}};
+			totalValue(test);
+			//c2.depositSickles(1);
+			//c2.depositKnuts(4);
+			
+			System.out.println(c2.numCoins());
+			System.out.println(c2);
+			CoinPurse c3 = new CoinPurse(2, 5, 10);
+			int [][] emptyArr = {{0, 0}, {0, 1}, {0, 2}}; 
+			System.out.println(c3.exactChangeArr(559, emptyArr));
+		}
+		
+		catch (IllegalArgumentException init) {
+			System.out.println(init.getMessage());
+		}
+	}
+	
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-09-20 16:22:52.411
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-09-20 16:22:52.411
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:540)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-09-20 16:22:52.553
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.util.Arrays;
+
+
+public class CoinPurse {
+
+	private int galleons;
+	private int sickles;
+	private int knuts;
+	private int space;
+	private int type;
+	private static final int GTK_CONV = 493; ///GALLEON TO KNUTS
+	private static final int STK_CONV = 29; ///SICKLE TO KNUTS
+	private final int  LIMIT = 256;
+	
+	public CoinPurse() {
+		
+		this.galleons = 0;
+		this.sickles = 0;
+		this.knuts = 0;
+		this.space = LIMIT - numCoins();
+	}
+	
+	public CoinPurse(int g, int s, int k) {
+		
+		if ( g < 0 || s < 0|| k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (LIMIT < (g + s + k)) {
+			throw new IllegalArgumentException(
+					"Too many coins must be less than " + LIMIT);
+		}
+		
+		else {
+			
+			this.galleons = g;
+			this.sickles = s;
+			this.knuts = k;
+			this.space = LIMIT - numCoins();
+		}
+	}
+	
+	public boolean isLegalDeposit(int coinAmnt) {
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+	public boolean isLegalWithdraw(int coinAmnt, int type) {
+		
+		if (coinAmnt < 0 ) {
+			
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (type == 0 || type == 1 || type == 2) {
+			boolean result = true;
+			switch (type) {
+			
+			
+			case 0://galleon
+				if (this.galleons < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + galleons + " galleons in the bank");
+				}	
+				result = false;
+				break;
+				
+			case 1: //sickles
+				if (this.sickles < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + sickles + " sickles in the bank");
+				}
+				result = false;
+				break;
+				
+			case 2: //knuts
+				if (this.knuts < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + knuts + " knuts in the bank");
+				}
+				result = false;
+				break;
+			}
+			return result;
+		}
+		else {
+			return true;
+		}
+	}
+		
+		
+	
+	public void deposit(int amnt, int coinType) {
+		
+		this.type = coinType;
+		
+		if (isLegalDeposit(amnt) == true) {
+			try {
+				
+				switch (type){
+					case 0: //galleon
+						this.galleons += amnt;
+						break;
+					case 1: //sickles
+						this.sickles += amnt;
+						break;
+					case 2: //knuts
+						this.knuts += amnt;
+						break;
+				}
+			}
+			
+			catch (IllegalArgumentException dep) {
+				System.out.println(dep.getMessage());
+			}
+			
+		}
+	}
+	
+	public void withdraw(int amnt, int coinType) {
+		
+		if (isLegalWithdraw(amnt, coinType)== true) {
+			try {
+				
+				switch (coinType){
+					case 0: //galleon
+						this.galleons -= amnt;
+						break;
+					case 1: //sickles
+						this.sickles -= amnt;
+						break;
+					case 2: //knuts
+						this.knuts -= amnt;
+						break;
+				}
+			}
+			
+			catch(IllegalArgumentException with) {
+				System.out.println(with.getMessage());
+			}
+			
+		}
+	}
+	
+	
+	/**try to use generics for deposit functions or a isLegal helper function
+	 * tried using generics but could not affect the values of the data fields when doing so 
+	 * @param g
+	 */
+	public void depositGalleon(int g) {
+	
+		deposit(g, 0);
+	}
+	
+	public void depositSickles(int s) {
+			
+		deposit(s, 1);
+	}
+	
+	public void depositKnuts(int k) {
+		
+		deposit(k, 2);
+	}
+	
+	public void withdrawGalleon(int g) {
+		
+		withdraw(g, 0);
+	}
+	
+	public void withdrawSickles(int s) {
+			
+		withdraw(s, 1);
+			
+	}
+	
+	public void withdrawKnuts(int k) {
+		
+		withdraw(k, 2);
+	}
+	
+	public int numCoins() {
+		int numCoins = galleons + sickles + knuts;
+		return numCoins;
+	}
+	
+	
+	public int totalValue() {
+		int total = (galleons * GTK_CONV) + (sickles * STK_CONV) + knuts;
+		return total;
+	}
+	
+	public static int totalValue(int[][] data) {
+		/**takes in a integer array in the for of {amount, type} 
+		 * where type 0, 1, 2 is  galleon, sickles, and knuts respectively
+		 */
+		int total = 0;
+		for (int i[]: data) {
+			
+			switch (i[1]) {
+				case 0:
+					total += i[0] * GTK_CONV;//galleon amount in knuts
+					break;
+				case 1:
+					total += i[0] * STK_CONV; //sickles amount in knuts
+					break;
+				case 2:
+					total += i[0];
+					break;	
+			}
+		}
+		//System.out.println("Your Total is " + total);
+		return total;
+	}
+	
+	public boolean exactChangeArr(int i, int [][] arr) {
+		//change return type to int[][]
+		//use short circuit and get rid of the for loop
+		
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		int change = i;
+		int [][] bracket = arr;
+		//boolean loseIt;
+		//boolean useIt = false;
+		
+		
+			
+		
+		if (cGalleons >= (change / GTK_CONV)) {
+			
+			change %= GTK_CONV;
+			arr[0][0] += change / GTK_CONV;
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		else {
+			
+			change -= cGalleons* GTK_CONV;
+			arr[0][0] +=cGalleons;
+			System.out.println(cGalleons);
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		if (cSickles >= (change / STK_CONV)) {
+			
+			arr[1][0] += change/ STK_CONV;
+			change %= STK_CONV;
+		}
+		
+		else {
+			
+			arr[1][0] += cSickles;
+			change -= cSickles * STK_CONV;
+		}
+		
+		if (change > 0 && cKnuts >= change) {
+			
+			arr[2][0] += change;
+			change -= change;
+		}
+		else {
+			change -cKnuts
+		}
+		
+		if (change == 0) {
+			
+			System.out.println(Arrays.deepToString(arr));
+			System.out.println(totalValue(arr));
+			return true;
+		}
+		
+		return false;
+	}	
+		
+		
+		
+		
+		// arr = {{cGalleons, 0}, {cSickles, 1}, {cKnuts, 2}};
+		
+		/**if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+			//System.out.println(Arrays.deepToString(arr));
+			int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+			System.out.println(Arrays.toString(coinChange));
+			return true;
+			
+		}
+		
+		
+		
+		else {
+			
+			
+			for (int num = 0; num < arr.length; num++) {
+				
+
+				if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+					//System.out.println(Arrays.deepToString(arr));
+					int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+					System.out.println(Arrays.toString(coinChange));
+					return true;
+				}
+				 //loseIt = exactChangeArr(i, arr);
+				 arr[num][0] += 1;
+				 useIt = exactChangeArr(i, arr);
+				 arr[num][0] -= 1; 
+				 
+				 //loseIt = exactChangeArr(i, arr);
+			}
+			return useIt;
+			
+			
+			
+			
+		}*/
+			
+
+			
+		
+
+		
+	
+	public String toString() {
+		return galleons + " galleons " + sickles + " sickles " + knuts + " knuts";
+	}
+	/**public boolean ExactChange(int n) {
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		
+	}*/
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			//CoinPurse c1 = new CoinPurse(100, 100, 100);
+			//System.out.println(c1.numCoins());
+			CoinPurse c2 = new CoinPurse(2, 5, 10);
+			System.out.println(c2.numCoins());
+			c2.depositGalleon(4);
+			//c2.withdrawGalleon(30);
+			int[][] test = {{1, 0}, {1, 1}, {1, 2}};
+			totalValue(test);
+			//c2.depositSickles(1);
+			//c2.depositKnuts(4);
+			
+			System.out.println(c2.numCoins());
+			System.out.println(c2);
+			CoinPurse c3 = new CoinPurse(2, 5, 10);
+			int [][] emptyArr = {{0, 0}, {0, 1}, {0, 2}}; 
+			System.out.println(c3.exactChangeArr(559, emptyArr));
+		}
+		
+		catch (IllegalArgumentException init) {
+			System.out.println(init.getMessage());
+		}
+	}
+	
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2022-09-20 16:22:52.556
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2022-09-20 16:22:52.556
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-09-20 16:22:54.142
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.util.Arrays;
+
+
+public class CoinPurse {
+
+	private int galleons;
+	private int sickles;
+	private int knuts;
+	private int space;
+	private int type;
+	private static final int GTK_CONV = 493; ///GALLEON TO KNUTS
+	private static final int STK_CONV = 29; ///SICKLE TO KNUTS
+	private final int  LIMIT = 256;
+	
+	public CoinPurse() {
+		
+		this.galleons = 0;
+		this.sickles = 0;
+		this.knuts = 0;
+		this.space = LIMIT - numCoins();
+	}
+	
+	public CoinPurse(int g, int s, int k) {
+		
+		if ( g < 0 || s < 0|| k < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (LIMIT < (g + s + k)) {
+			throw new IllegalArgumentException(
+					"Too many coins must be less than " + LIMIT);
+		}
+		
+		else {
+			
+			this.galleons = g;
+			this.sickles = s;
+			this.knuts = k;
+			this.space = LIMIT - numCoins();
+		}
+	}
+	
+	public boolean isLegalDeposit(int coinAmnt) {
+		
+		if (this.space < coinAmnt) {
+			throw new IllegalArgumentException(
+					"Too many coins add less than or equal to " + space);
+		
+		}
+		
+		if (coinAmnt < 0 ) {
+			throw new IllegalArgumentException(
+					"Cannot add negative coins");
+		}
+		
+		else {
+			return true;
+		}
+	}
+	public boolean isLegalWithdraw(int coinAmnt, int type) {
+		
+		if (coinAmnt < 0 ) {
+			
+			throw new IllegalArgumentException(
+					"Cannnot add negative coins");
+		}
+		
+		if (type == 0 || type == 1 || type == 2) {
+			boolean result = true;
+			switch (type) {
+			
+			
+			case 0://galleon
+				if (this.galleons < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + galleons + " galleons in the bank");
+				}	
+				result = false;
+				break;
+				
+			case 1: //sickles
+				if (this.sickles < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + sickles + " sickles in the bank");
+				}
+				result = false;
+				break;
+				
+			case 2: //knuts
+				if (this.knuts < coinAmnt) {
+					throw new IllegalArgumentException(
+							"Overdraft! You only have " + knuts + " knuts in the bank");
+				}
+				result = false;
+				break;
+			}
+			return result;
+		}
+		else {
+			return true;
+		}
+	}
+		
+		
+	
+	public void deposit(int amnt, int coinType) {
+		
+		this.type = coinType;
+		
+		if (isLegalDeposit(amnt) == true) {
+			try {
+				
+				switch (type){
+					case 0: //galleon
+						this.galleons += amnt;
+						break;
+					case 1: //sickles
+						this.sickles += amnt;
+						break;
+					case 2: //knuts
+						this.knuts += amnt;
+						break;
+				}
+			}
+			
+			catch (IllegalArgumentException dep) {
+				System.out.println(dep.getMessage());
+			}
+			
+		}
+	}
+	
+	public void withdraw(int amnt, int coinType) {
+		
+		if (isLegalWithdraw(amnt, coinType)== true) {
+			try {
+				
+				switch (coinType){
+					case 0: //galleon
+						this.galleons -= amnt;
+						break;
+					case 1: //sickles
+						this.sickles -= amnt;
+						break;
+					case 2: //knuts
+						this.knuts -= amnt;
+						break;
+				}
+			}
+			
+			catch(IllegalArgumentException with) {
+				System.out.println(with.getMessage());
+			}
+			
+		}
+	}
+	
+	
+	/**try to use generics for deposit functions or a isLegal helper function
+	 * tried using generics but could not affect the values of the data fields when doing so 
+	 * @param g
+	 */
+	public void depositGalleon(int g) {
+	
+		deposit(g, 0);
+	}
+	
+	public void depositSickles(int s) {
+			
+		deposit(s, 1);
+	}
+	
+	public void depositKnuts(int k) {
+		
+		deposit(k, 2);
+	}
+	
+	public void withdrawGalleon(int g) {
+		
+		withdraw(g, 0);
+	}
+	
+	public void withdrawSickles(int s) {
+			
+		withdraw(s, 1);
+			
+	}
+	
+	public void withdrawKnuts(int k) {
+		
+		withdraw(k, 2);
+	}
+	
+	public int numCoins() {
+		int numCoins = galleons + sickles + knuts;
+		return numCoins;
+	}
+	
+	
+	public int totalValue() {
+		int total = (galleons * GTK_CONV) + (sickles * STK_CONV) + knuts;
+		return total;
+	}
+	
+	public static int totalValue(int[][] data) {
+		/**takes in a integer array in the for of {amount, type} 
+		 * where type 0, 1, 2 is  galleon, sickles, and knuts respectively
+		 */
+		int total = 0;
+		for (int i[]: data) {
+			
+			switch (i[1]) {
+				case 0:
+					total += i[0] * GTK_CONV;//galleon amount in knuts
+					break;
+				case 1:
+					total += i[0] * STK_CONV; //sickles amount in knuts
+					break;
+				case 2:
+					total += i[0];
+					break;	
+			}
+		}
+		//System.out.println("Your Total is " + total);
+		return total;
+	}
+	
+	public boolean exactChangeArr(int i, int [][] arr) {
+		//change return type to int[][]
+		//use short circuit and get rid of the for loop
+		
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		int change = i;
+		int [][] bracket = arr;
+		//boolean loseIt;
+		//boolean useIt = false;
+		
+		
+			
+		
+		if (cGalleons >= (change / GTK_CONV)) {
+			
+			change %= GTK_CONV;
+			arr[0][0] += change / GTK_CONV;
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		else {
+			
+			change -= cGalleons* GTK_CONV;
+			arr[0][0] +=cGalleons;
+			System.out.println(cGalleons);
+			System.out.println(Arrays.deepToString(arr));
+		}
+		
+		if (cSickles >= (change / STK_CONV)) {
+			
+			arr[1][0] += change/ STK_CONV;
+			change %= STK_CONV;
+		}
+		
+		else {
+			
+			arr[1][0] += cSickles;
+			change -= cSickles * STK_CONV;
+		}
+		
+		if (change > 0 && cKnuts >= change) {
+			
+			arr[2][0] += change;
+			change -= change;
+		}
+		else {
+			change -cKnuts
+		}
+		
+		if (change == 0) {
+			
+			System.out.println(Arrays.deepToString(arr));
+			System.out.println(totalValue(arr));
+			return true;
+		}
+		
+		return false;
+	}	
+		
+		
+		
+		
+		// arr = {{cGalleons, 0}, {cSickles, 1}, {cKnuts, 2}};
+		
+		/**if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+			//System.out.println(Arrays.deepToString(arr));
+			int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+			System.out.println(Arrays.toString(coinChange));
+			return true;
+			
+		}
+		
+		
+		
+		else {
+			
+			
+			for (int num = 0; num < arr.length; num++) {
+				
+
+				if (totalValue(arr) == i && arr[0][0] <= cGalleons && arr[1][0] <= cSickles && arr[2][0] <= cKnuts) {
+					//System.out.println(Arrays.deepToString(arr));
+					int [] coinChange =  {arr[0][0], arr[1][0], arr[2][0]};
+					System.out.println(Arrays.toString(coinChange));
+					return true;
+				}
+				 //loseIt = exactChangeArr(i, arr);
+				 arr[num][0] += 1;
+				 useIt = exactChangeArr(i, arr);
+				 arr[num][0] -= 1; 
+				 
+				 //loseIt = exactChangeArr(i, arr);
+			}
+			return useIt;
+			
+			
+			
+			
+		}*/
+			
+
+			
+		
+
+		
+	
+	public String toString() {
+		return galleons + " galleons " + sickles + " sickles " + knuts + " knuts";
+	}
+	/**public boolean ExactChange(int n) {
+		int cGalleons = galleons;
+		int cSickles = sickles;
+		int cKnuts = knuts;
+		
+	}*/
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			//CoinPurse c1 = new CoinPurse(100, 100, 100);
+			//System.out.println(c1.numCoins());
+			CoinPurse c2 = new CoinPurse(2, 5, 10);
+			System.out.println(c2.numCoins());
+			c2.depositGalleon(4);
+			//c2.withdrawGalleon(30);
+			int[][] test = {{1, 0}, {1, 1}, {1, 2}};
+			totalValue(test);
+			//c2.depositSickles(1);
+			//c2.depositKnuts(4);
+			
+			System.out.println(c2.numCoins());
+			System.out.println(c2);
+			CoinPurse c3 = new CoinPurse(2, 5, 10);
+			int [][] emptyArr = {{0, 0}, {0, 1}, {0, 2}}; 
+			System.out.println(c3.exactChangeArr(559, emptyArr));
+		}
+		
+		catch (IllegalArgumentException init) {
+			System.out.println(init.getMessage());
+		}
+	}
+	
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2022-09-20 16:22:54.142
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2022-09-20 16:22:54.144
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3095)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2248)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:344)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1272)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2022-09-20 21:30:49.319 -----------------------------------------------
+eclipse.buildId=4.24.0.I20220607-0700
+java.version=17.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/kobe/.eclipse_keyring
+
+!ENTRY org.eclipse.jface 2 0 2022-09-20 21:31:39.949
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-20 21:31:39.949
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@656c5818,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3e2578ea,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-09-20 21:31:39.949
+!MESSAGE A conflict occurred for ALT+COMMAND+R:
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@29592929,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+Binding(ALT+COMMAND+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4cf5d999,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
